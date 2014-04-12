@@ -1,25 +1,17 @@
 <?php
+require_once('ISpaceShip.class.php');
 require_once('Battleground/Battleground.class.php');
 require_once('Battleground/EnumDirection.class.php');
 
-Class BattleShip
+Class BattleShip implements ISpaceShip
 {
-	protected $_name = "Big Ass Meteor in your Face";
-	protected $_pos = [];
-	protected $_z = EnumDirection::NORTH;
-	protected $_rotate = 42;
-	protected $_pp = 42;
-	protected $_hp = 42000;
-	protected $_shield = 0;
-	protected $_speed = 0;
-	protected $_handling = 9000;
-	protected $_size = ['width' => 10, 'length' => 13];
-	protected $_sprite = "brown";
-	protected $_weapons = ['heavy gravity'];
-
-	final public function __construct(array $kwargs)
+	final public function __construct(array $pos)
 	{
-		$this->_name = $kwargs['name'];
+		for ($i = 0; $i < $this->_size['width']; $i++)
+		{
+			for ($j = 0; $j < $this->_size['length']; $j++)
+				$this->_pos[] = (($pos['y'] + $j * $this->_z) * Battleground::WIDTH) + ($pos['x'] + $i);
+		}
 	}
 
 	public static function doc()
