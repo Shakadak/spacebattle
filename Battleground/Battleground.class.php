@@ -5,7 +5,7 @@ Final Class Battleground
 {
 	const WIDTH = 150;
 	const HEIGHT = 100;
-	private $_battlefield;
+	public $_battlefield;
 	private $_newturn = True;
 
 	public function __construct()
@@ -13,7 +13,7 @@ Final Class Battleground
 		for ($i = 0; $i < self::HEIGHT; $i++)
 		{
 			for ($j = 0; $j < self::WIDTH; $j++)
-				$this->battlefield[$i][$j] = NULL;
+				$this->battlefield[$i][$j] = 1;
 		}
 	}
 
@@ -41,7 +41,7 @@ Final Class Battleground
 			foreach ($row as $block)
 			{
 				print_r($block);
-				if ($block instanceof Battleship)
+				if ($block instanceof BattleShip)
 				{
 					print("<td style='background-color:");
 					print($block->getColor());

@@ -19,14 +19,14 @@ Class BattleShip
 	protected $_size = ['width' => 10, 'length' => 13];
 	protected $_sprite = "brown";
 
-	final public function __construct(array $kwargs)
+	final public function __construct(array $kwargs, &$bg)
 	{
 		$this->_x = $kwargs['x'];
 		$this->_x = $kwargs['y'];
 		$this->_name = $kwargs['name'];
 		$this->_z = $kwargs['z'];
 		$this->_sprite = $kwargs['sprite'];
-		self::setPos(0, $kwargs['bg']);
+		self::setPos(0, $bg);
 	}
 
 	public static function doc()
@@ -49,24 +49,24 @@ Class BattleShip
 		return ($this->_sprite);
 	}
 
-	final public function setPos($dist, $bg)
+	final public function setPos($dist, &$bg)
 	{
 		switch($this->_z)
 		{
 		case EnumDirection::NORTH:
 			$this->_y -= $dist;
 			self::_removeV($bg, 1, 1);
-			self::_moveV($dist['bg'], 1, 1);
+			self::_moveV($bg, 1, 1);
 			break;
 		case EnumDirection::SOUTH:
 			$this->_y += $dist;
-			self::_removeV($dist['bg'], -1, -1);
-			self::_moveV($dist['bg'], -1, -1);
+			self::_removeV($bg, -1, -1);
+			self::_moveV($bg, -1, -1);
 			break;
 		case EnumDirection::EAST:
 			$this->_x += $dist;
 			self::_removeH($bg, -1, -1);
-			self::_moveH($dbg, -1, -1);
+			self::_moveH($bg, -1, -1);
 			break;
 		case EnumDirection::WEST:
 			$this->_x -= $dist;
@@ -102,7 +102,7 @@ Class BattleShip
 		}
 	}
 
-	final protected function _removeV($bg, $modx, $mody)
+	final protected function _removeV(&$bg, $modx, $mody)
 	{
 		for ($i = 0; $i < $this->_size['width']; $i++)
 		{
@@ -111,7 +111,7 @@ Class BattleShip
 		}
 	}
 
-	final protected function _removeH($bg, $modx, $mody)
+	final protected function _removeH(&$bg, $modx, $mody)
 	{
 		for ($i = 0; $i < $this->_size['width']; $i++)
 		{
@@ -120,16 +120,17 @@ Class BattleShip
 		}
 	}
 
-	final protected function _moveV($bg, $modx, $mody)
+	final protected function _moveV(&$bg, $modx, $mody)
 	{
 		for ($i = 0; $i < $this->_size['width']; $i++)
 		{
 			for ($j = 0; $j < $this->_size['length']; $j++)
 				$bg->battlefield[$this->_y + $i * $mody][$this->_x + $j * $modx] = $this;
 		}
+		print_r($bg->battlefield);
 	}
 
-	final protected function _moveH($bg, $modx, $mody)
+	final protected function _moveH(&$bg, $modx, $mody)
 	{
 		for ($i = 0; $i < $this->_size['width']; $i++)
 		{

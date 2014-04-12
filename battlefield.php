@@ -63,7 +63,8 @@ else
 $ship = $_SESSION['ships'][$_SESSION['turn'] % 2];
 $speed = $ship->getSpeed();
 for ($i = 0; $i <= $speed; $i++)
-	echo "<option value=$i>$i</option>\n";?>
+	echo "<option value=$i>$i</option>\n";
+?>
 </select></td><td class="init"><input type='submit' name='sent' value='OK'></td></tr></table></form>
 </div>
 </body></html>
