@@ -24,8 +24,9 @@ Class BattleShip
 		$this->_x = $kwargs['x'];
 		$this->_x = $kwargs['y'];
 		$this->_name = $kwargs['name'];
-		$this->_z = $kwargs['name'];
+		$this->_z = $kwargs['z'];
 		$this->_sprite = $kwargs['sprite'];
+		self::setPos(0, $kwargs['bg']);
 	}
 
 	public static function doc()
@@ -48,25 +49,29 @@ Class BattleShip
 		return ($this->_sprite);
 	}
 
-	final public function setPos(array $dist)
+	final public function setPos($dist, $bg)
 	{
 		switch($this->_z)
 		{
 		case EnumDirection::NORTH:
-			$this->_x -= $dist['dist'];
+			$this->_y -= $dist;
+			self::_removeV($bg, 1, 1);
 			self::_moveV($dist['bg'], 1, 1);
 			break;
 		case EnumDirection::SOUTH:
-			$this->_x += $dist['dist'];
-			self::_write($dist['bg'], -1, -1);
+			$this->_y += $dist;
+			self::_removeV($dist['bg'], -1, -1);
+			self::_moveV($dist['bg'], -1, -1);
 			break;
 		case EnumDirection::EAST:
-			$this->_y += $dist['dist'];
-			self::_write($dist['bg'], -1, -1);
+			$this->_x += $dist;
+			self::_removeH($bg, -1, -1);
+			self::_moveH($dbg, -1, -1);
 			break;
 		case EnumDirection::WEST:
-			$this->_y -= $dist['dist'];
-			self::_write($dist['bg'], 1, 1);
+			$this->_x -= $dist;
+			self::_removeH($bg, 1, 1);
+			self::_moveH($bg, 1, 1);
 			break;
 		}
 	}
@@ -97,7 +102,25 @@ Class BattleShip
 		}
 	}
 
-	final private function moveV($bg, $modx, $mody)
+	final protected function _removeV($bg, $modx, $mody)
+	{
+		for ($i = 0; $i < $this->_size['width']; $i++)
+		{
+			for ($j = 0; $j < $this->_size['length']; $j++)
+				$bg->battlefield[$this->_y + $i * $mody][$this->_x + $j * $modx] = NULL;
+		}
+	}
+
+	final protected function _removeH($bg, $modx, $mody)
+	{
+		for ($i = 0; $i < $this->_size['width']; $i++)
+		{
+			for ($j = 0; $j < $this->_size['length']; $j++)
+				$bg->battlefield[$this->_y + $j * $mody][$this->_x + $i * $modx] = NULL;
+		}
+	}
+
+	final protected function _moveV($bg, $modx, $mody)
 	{
 		for ($i = 0; $i < $this->_size['width']; $i++)
 		{
@@ -106,7 +129,7 @@ Class BattleShip
 		}
 	}
 
-	final private function moveH($bg, $modx, $mody)
+	final protected function _moveH($bg, $modx, $mody)
 	{
 		for ($i = 0; $i < $this->_size['width']; $i++)
 		{
@@ -115,37 +138,9 @@ Class BattleShip
 		}
 	}
 
-	final private function moveH($dist)
-	{
-	}
-
-	final private function moveWest($dist)
-	{
-	}
-
-	final private function moveEast($dist)
-	{
-	}
-
-	final private function setNorth($dir)
-	{
-	}
-
-	final private function setSouth($dir)
-	{
-	}
-
-	final private function setWest($dir)
-	{
-	}
-
-	final private function setEast($dir)
-	{
-	}
-
 	final public function getSpeed()
 	{
-		return ($this->_speed);
+		return ($this->_speed - $this->_speedused);
 	}
 
 /*	public function getHP(

@@ -13,7 +13,7 @@ Final Class Battleground
 		for ($i = 0; $i < self::HEIGHT; $i++)
 		{
 			for ($j = 0; $j < self::WIDTH; $j++)
-				$this->battlefield[$i][$j] = 1;
+				$this->battlefield[$i][$j] = NULL;
 		}
 	}
 
@@ -40,10 +40,12 @@ Final Class Battleground
 			print("<tr>");
 			foreach ($row as $block)
 			{
+				print_r($block);
 				if ($block instanceof Battleship)
 				{
 					print("<td style='background-color:");
 					print($block->getColor());
+					print("OMG");
 					print("'></td>");
 				}
 				else
