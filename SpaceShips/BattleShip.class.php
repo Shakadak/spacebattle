@@ -18,16 +18,13 @@ Class BattleShip
 	protected $_handling = 9000;
 	protected $_size = ['width' => 10, 'length' => 13];
 	protected $_sprite = "brown";
-	protected $_weapons = ['heavy gravity'];
 
 	final public function __construct(array $kwargs)
 	{
 		$this->_x = $kwargs['x'];
 		$this->_x = $kwargs['y'];
 		$this->_name = $kwargs['name'];
-		$this->_size['width'] = $kwargs['width'];
-		$this->_size['length'] = $kwargs['length'];
-		$this->_name = $kwargs['name'];
+		$this->_z = $kwargs['name'];
 		$this->_sprite = $kwargs['sprite'];
 	}
 
@@ -51,147 +48,99 @@ Class BattleShip
 		return ($this->_sprite);
 	}
 
-	final public function setPos($dist)
+	final public function setPos(array $dist)
 	{
 		switch($this->_z)
 		{
 		case EnumDirection::NORTH:
-			self::moveNorth($dist);
+			$this->_x -= $dist['dist'];
+			self::_moveV($dist['bg'], 1, 1);
 			break;
 		case EnumDirection::SOUTH:
-			self::moveSouth($dist);
+			$this->_x += $dist['dist'];
+			self::_write($dist['bg'], -1, -1);
 			break;
 		case EnumDirection::EAST:
-			self::moveEast($dist);
+			$this->_y += $dist['dist'];
+			self::_write($dist['bg'], -1, -1);
 			break;
 		case EnumDirection::WEST:
-			self::moveWest($dist);
+			$this->_y -= $dist['dist'];
+			self::_write($dist['bg'], 1, 1);
 			break;
 		}
 	}
+
+
 
 	final public function getZ()
 	{
 		return ($this->_z);
 	}
 
-	final public function setZ($dir)
+	final public function setZ(array $turn)
 	{
 		switch($this->_z)
 		{
 		case EnumDirection::NORTH:
-			self::setNorth($dir);
+			self::setNorth($turn);
 			break;
 		case EnumDirection::SOUTH:
-			self::setSouth($dir);
+			self::setSouth($turn);
 			break;
 		case EnumDirection::EAST:
-			self::setEast($dir);
+			self::setEast($turn);
 			break;
 		case EnumDirection::WEST:
-			self::setWest($dir);
+			self::setWest($turn);
 			break;
 		}
 	}
 
-	final private function moveNorth($dist)
+	final private function moveV($bg, $modx, $mody)
 	{
-		$hull = $this->_pos;
-		$this->_pos = [];
-		foreach ($hull as $part)
-			$this->_pos[] = $part - $dist * Battleground::WIDTH;
+		for ($i = 0; $i < $this->_size['width']; $i++)
+		{
+			for ($j = 0; $j < $this->_size['length']; $j++)
+				$bg->battlefield[$this->_y + $i * $mody][$this->_x + $j * $modx] = $this;
+		}
 	}
 
-	final private function moveSouth($dist)
+	final private function moveH($bg, $modx, $mody)
 	{
-		$hull = $this->_pos;
-		$this->_pos = [];
-		foreach ($hull as $part)
-			$this->_pos[] = $part + $dist * Battleground::WIDTH;
+		for ($i = 0; $i < $this->_size['width']; $i++)
+		{
+			for ($j = 0; $j < $this->_size['length']; $j++)
+				$bg->battlefield[$this->_y + $j * $mody][$this->_x + $i * $modx] = $this;
+		}
+	}
+
+	final private function moveH($dist)
+	{
 	}
 
 	final private function moveWest($dist)
 	{
-		$hull = $this->_pos;
-		$this->_pos = [];
-		foreach ($hull as $part)
-			$this->_pos[] = $part - $dist;
 	}
 
 	final private function moveEast($dist)
 	{
-		$hull = $this->_pos;
-		$this->_pos = [];
-		foreach ($hull as $part)
-			$this->_pos[] = $part + $dist;
 	}
 
 	final private function setNorth($dir)
 	{
-		$spin = $this->_rotate;
-		$ox = $this->_pos[$spin] % Battleground::WIDTH;
-		$oy = ($this->_pos[$spin] - $ox) / Battleground::WIDTH;
-		$this->_pos = [];
-		for ($i = 0; $i < $this->_size['width']; $i++)
-		{
-			for ($j = 0; $j < $this->_size['length']; $j++)
-				$this->_pos[] = (($oy + $i) * Battleground::WIDTH) + ($j * -$dir + $ox + $spin * $dir);
-		}
-		if ($dir == EnumDirection::LEFT)
-			$this->_z = EnumDirection::WEST;
-		else
-			$this->_z = EnumDirection::EAST;
 	}
 
 	final private function setSouth($dir)
 	{
-		$spin = $this->_rotate;
-		$ox = $this->_pos[$spin] % Battleground::WIDTH + $spin * $dir;
-		$oy = ($this->_pos[$spin] - $ox) / Battleground::WIDTH;
-		$this->_pos = [];
-		for ($i = 0; $i < $this->_size['width']; $i++)
-		{
-			for ($j = 0; $j < $this->_size['length']; $j++)
-				$this->_pos[] = (($oy + $i) * Battleground::WIDTH) + $j * $dir + $spin * -$dir + $ox;
-		}
-		if ($dir == EnumDirection::LEFT)
-			$this->_z = EnumDirection::EAST;
-		else
-			$this->_z = EnumDirection::WEST;
 	}
 
 	final private function setWest($dir)
 	{
-		$spin = $this->_rotate;
-		$ox = $this->_pos[$spin] % Battleground::WIDTH;
-		$oy = ($this->_pos[$spin] - $ox) / Battleground::WIDTH;
-		$this->_pos = [];
-		for ($i = 0; $i < $this->_size['width']; $i++)
-		{
-			for ($j = 0; $j < $this->_size['length']; $j++)
-				$this->_pos[] = (($oy + $j * $dir + $spin * -$dir) * Battleground::WIDTH) + $i * $dir + $ox;
-		}
-		if ($dir == EnumDirection::LEFT)
-			$this->_z = EnumDirection::SOUTH;
-		else
-			$this->_z = EnumDirection::NORTH;
 	}
 
 	final private function setEast($dir)
 	{
-		$spin = $this->_rotate;
-		$ox = $this->_pos[$spin] % Battleground::WIDTH;
-		$oy = ($this->_pos[$spin] - $ox) / Battleground::WIDTH;
-		$this->_pos = [];
-		for ($i = 0; $i < $this->_size['width']; $i++)
-		{
-			for ($j = 0; $j < $this->_size['length']; $j++)
-				$this->_pos[] = (($oy + $j * -$dir + $spin * $dir) * Battleground::WIDTH) + $i + $ox;
-		}
-		if ($dir == EnumDirection::LEFT)
-			$this->_z = EnumDirection::NORTH;
-		else
-			$this->_z = EnumDirection::SOUTH;
 	}
 
 	final public function getSpeed()
