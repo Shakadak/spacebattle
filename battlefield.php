@@ -15,9 +15,10 @@ require_once('Battleground/EnumDirection.class.php');
 require_once('SpaceShips/Asteroid.class.php');
 session_start();
 $bg = $_SESSION['bg'];
-if ($bg->newturn)
+if ($bg->newturn())
 {
 	$_SESSION['turn']++;
+}
 
 if (!isset($_POST['sent']))
 	$_POST['sent'] = "NOK";
@@ -40,7 +41,7 @@ if ($_POST['sent'] == "OK")
 		$ship->setPos($_POST['movement']);
 }
 
-$_SESSION['bg']->display($_SESSION['ships']);
+$_SESSION['bg']->display();
 ?>
 </div>
 <div style='background-color:<?php

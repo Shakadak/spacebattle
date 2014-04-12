@@ -5,7 +5,8 @@ Final Class Battleground
 {
 	const WIDTH = 150;
 	const HEIGHT = 100;
-	private $battlefield;
+	private $_battlefield;
+	private $_newturn = True;
 
 	public function __construct()
 	{
@@ -14,6 +15,21 @@ Final Class Battleground
 			for ($j = 0; $j < self::WIDTH; $j++)
 				$this->battlefield[$i][$j] = 1;
 		}
+	}
+
+	public function newturn()
+	{
+		if ($this->_newturn)
+		{
+			$this->_newturn = False;
+			return (True);
+		}
+		return ($this->_newturn);
+	}
+
+	public function enturn()
+	{
+		$this->_newturn = True;
 	}
 
 	public function display()

@@ -5,13 +5,16 @@ require_once('Battleground/EnumDirection.class.php');
 Class BattleShip
 {
 	protected $_name = "Big Ass Meteor in your Face";
-	protected $_pos = [];
+	protected $_x = 0;
+	protected $_y = 0;
 	protected $_z = EnumDirection::NORTH;
 	protected $_rotate = 42;
 	protected $_pp = 42;
+	protected $_ppused = 42;
 	protected $_hp = 42000;
 	protected $_shield = 0;
 	protected $_speed = 0;
+	protected $_speedused = 0;
 	protected $_handling = 9000;
 	protected $_size = ['width' => 10, 'length' => 13];
 	protected $_sprite = "brown";
@@ -19,7 +22,13 @@ Class BattleShip
 
 	final public function __construct(array $kwargs)
 	{
+		$this->_x = $kwargs['x'];
+		$this->_x = $kwargs['y'];
 		$this->_name = $kwargs['name'];
+		$this->_size['width'] = $kwargs['width'];
+		$this->_size['length'] = $kwargs['length'];
+		$this->_name = $kwargs['name'];
+		$this->_sprite = $kwargs['sprite'];
 	}
 
 	public static function doc()
