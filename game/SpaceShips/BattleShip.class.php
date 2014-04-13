@@ -15,20 +15,37 @@ Class BattleShip
 		self::setPos(0);
 	}
 
+<<<<<<< HEAD
+	public function getCell($y, $x, $player)
+	{
+		$str = "<td class='boardcell' style='background-color:";
+=======
 	public function getCell($y, $x)
 	{
 		$str = "<td style='background-color:";
+>>>>>>> 84a2dc9b00d5893ba709f46397662e315b2b3d1c
 		if ($x == $this->_x && $y == $this->_y && $this->_player != "none")
 			$str .= "black";
 		else
 			$str .= $this->_sprite;
+<<<<<<< HEAD
+		if ($player == $this->_player)
+		{
+		}
+		$str .= ";cursor:hand' onclick=\"window.location.href = 'battlefield.php?action=pp'\"></td>";
+=======
 		$str .= "'></td>";
+>>>>>>> 84a2dc9b00d5893ba709f46397662e315b2b3d1c
 		return ($str);
 	}
 
 	public function checkPlayer($player)
 	{
+<<<<<<< HEAD
+		return ($this->_player == $player);
+=======
 		return ($this->player == $player);
+>>>>>>> 84a2dc9b00d5893ba709f46397662e315b2b3d1c
 	}
 
 	public static function doc()

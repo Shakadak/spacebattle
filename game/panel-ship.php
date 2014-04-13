@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+<div style="float:left;width:25%;height:30%">
+	<div id="window" style="height:110px;">
+      <h1 id="title">Select your spaceship !</h1>
+    </div>
+</div>
+=======
 <html>
   <head>
     <title>Panel</title>
@@ -10,3 +17,4 @@
     </div>
   </body>
 </html>
+>>>>>>> 84a2dc9b00d5893ba709f46397662e315b2b3d1c

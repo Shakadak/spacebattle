@@ -13,6 +13,11 @@ body
 	height: 500px;
 	position: absolute;
 	border-radius: 13px;
+<<<<<<< HEAD
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+=======
+>>>>>>> 84a2dc9b00d5893ba709f46397662e315b2b3d1c
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -65,7 +70,11 @@ table
 	margin-top: -50px;
 	margin-left: 120px;
 }
+<<<<<<< HEAD
+.panel
+=======
 td
+>>>>>>> 84a2dc9b00d5893ba709f46397662e315b2b3d1c
 {
 	text-align: center;
 	font-size: 10pt;
@@ -75,12 +84,39 @@ td
 	cursor: pointer;
 	transition: all .42s ease;
 }
+<<<<<<< HEAD
+.panel:active
+=======
 td:active
+>>>>>>> 84a2dc9b00d5893ba709f46397662e315b2b3d1c
 {
 	background-color: red;
 	color: white;
 }
 
+<<<<<<< HEAD
+.boardcell
+{
+	border: 1px solid rgba(150, 150, 150, .5);
+	width: 10px;
+	height: 10px;
+}
+.boardtable
+{
+	margin: auto;
+	border-collapse: collapse;
+}
+
+#board
+{
+	background-color: rgba(255, 255, 255, .5);
+	padding: 25px;
+	border-radius: 25px;
+	border-top-right-radius: 0;
+}
+
+=======
+>>>>>>> 84a2dc9b00d5893ba709f46397662e315b2b3d1c
 #points
 {
 	margin-top: -60px;

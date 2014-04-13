@@ -36,7 +36,11 @@ Final Class Battleground
 	public static function display()
 	{
 		$bg = unserialize(file_get_contents(".bg"));
+<<<<<<< HEAD
+		print("<table class='boardtable'>");
+=======
 		print("<table>");
+>>>>>>> 84a2dc9b00d5893ba709f46397662e315b2b3d1c
 		$i = 0;
 		foreach ($bg as $row)
 		{
@@ -45,9 +49,15 @@ Final Class Battleground
 			foreach ($row as $block)
 			{
 				if ($block instanceof BattleShip)
+<<<<<<< HEAD
+					print($block->getCell($i, $j, "1"));
+				else
+					print("<td class='boardcell'></td>");
+=======
 					print($block->getCell($i, $j));
 				else
 					print("<td></td>");
+>>>>>>> 84a2dc9b00d5893ba709f46397662e315b2b3d1c
 				$j++;
 			}
 			$i++;

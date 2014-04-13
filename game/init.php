@@ -23,4 +23,8 @@ $_SESSION['ships'][] = new Asteroid(['x' => 135, 'y' => 87, 'z' => EnumDirection
 $_SESSION['ships'][] = new Asteroid(['x' => 88, 'y' => 42, 'z' => EnumDirection::NORTH, 'name' => "Ashen Boulder", 'width' => 8, 'length' => 9, 'sprite' => "brown", 'player' => 'none']);
 $_SESSION['ships'][] = new Asteroid(['x' => 124, 'y' => 12, 'z' => EnumDirection::NORTH, 'name' => "Ice Continent", 'width' => 10, 'length' => 10, 'sprite' => "brown", 'player' => 'none']);
 ?>
+<<<<<<< HEAD
+</body></html>
+=======
 </html></html>
+>>>>>>> 84a2dc9b00d5893ba709f46397662e315b2b3d1c
