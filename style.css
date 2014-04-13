@@ -1,19 +1,217 @@
-body {
-	font-family: monospace;
+body
+{
+	padding: 0;
+	margin: 0 auto;
+	width: 1250px;
+	height: 100%;
+	text-align: center;
+	background-image: url(bg.jpg);
+	background-size: 100%;
+	font-family: "Open Sans", Arial, sans-serif;
+	color: white;
 }
 
-table {
-	border-collapse: collapse;
+ul
+{
+	list-style: none;
 }
-
-tr {
+#header
+{
+	border-top-left-radius: 13px;
+	border-top-right-radius: 13px;
+	margin-top: 200px;
+	width: 100%;
+	height: 150px;
+	min-width: 837px;
+	overflow: hidden;
+	background-color: rgba(255, 255, 255, .5);
 }
-
-td {
-	border: 1px solid black;
-	width: 10px;
-	height: 10px;
-}
-.battleground {
+#logo
+{
 	float: left;
+	margin-right: 10px;
+	height: 100%;
+}
+.logo-img
+{
+	width: 250px;
+	height: 149px;
+}
+#banniere-slide
+{
+	float: left;
+	height: 100%;
+	width: 990px;
+	overflow: hidden;
+}
+#body
+{
+	margin-top: 10px;
+	width: 100%;
+}
+#body-body
+{
+	width: 950px;
+	height: 100%;
+	float: left;
+}
+#body-result
+{
+	width: 960px;
+	min-height: 600px;
+	height: 100%;
+	float: left;
+	overflow: hidden;
+	background-color: rgba(255, 255, 255, .5);
+}
+#check-connexion
+{
+	float: right;
+	min-height: 600px;
+	width: 280px;
+	height: 180px;
+	overflow: hidden;
+	background-color: rgba(255, 255, 255, .5);
+}
+#check-connexion-create
+{
+	text-align: center;
+}
+#bottom
+{
+	margin-top: 10px;
+	float: left;
+	width: 100%;
+	height: 15px;
+	overflow: hidden;
+	background-color: rgba(255, 255, 255, .5);
+	font-size: 12px;
+	text-align: center;
+	padding: 20px 0 20px 0;
+	border-bottom-left-radius: 13px;
+	border-bottom-right-radius: 13px;
+}
+#bottom span
+{
+	margin-right: 10px;
+}
+#connected
+{
+
+}
+#connected h2
+{
+	margin-top: 10px;
+}
+.connected-user
+{
+	font-size: 30px;
+	font-style: italic;
+}
+.connected-logout
+{
+	margin-top: 50px;
+}
+#notconnected
+{
+	font-size: 12px;
+}
+.linkcreate
+{
+}
+.linkcreate:hover
+{
+}
+
+.login, .passwd, .mail
+{
+	outline: none;
+    border: none;
+    height: 42px;
+    width: 200px;
+    margin: 10px 10px 10px 13px;
+    color: red;
+    font-size: 12pt;
+    transition: all .42s ease;
+}
+
+.login:focus, .passwd:focus, .mail:focus
+{
+	opacity: .5;
+}
+
+.button
+{
+	margin-top: 7px;
+	width: 200px;
+	height: 45px;
+    border: none;
+    background-color: white;
+    border-bottom: 3px solid #e9e9e9;
+    outline: none;
+    margin-top: 13px;
+    color: red;
+    font-size: 12pt;
+}
+.button:active
+{
+	border-bottom: 1px solid #e9e9e9;
+    height: 43px;
+    margin-top: 15px;
+}
+
+h2
+{
+	font-size: 21pt;
+	color: white;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+#header #logo a
+{
+	font-size: 60px;
+	line-height: 150px;
+	margin-left: 400px;
+}
+
+a, a:visited
+{
+	text-decoration: none;
+	color: white;
+	font-size: 12pt;
+}
+
+#account-created
+{
+	margin-top: 50px;
+	font-size: 20px;
+}
+.list
+{
+	display:none;
+	margin-left: 15px;
+	font-size: 17px;
+	font-style: none;
+}
+.categorieshover:hover>.list
+{
+	display:block;
+}
+.categorieshover
+{
+	text-align: left;
+	font-size: 20px;
+	font-style: italic;
+}
+
+/*********************************************/
+/*                                           */
+/*   RESPONSIVE WEB DESIGN - MEDIA QUERIES   */
+/*                                           */
+/*********************************************/
+
+@media screen and (max-width: px)
+{
+
 }

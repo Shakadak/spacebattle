@@ -1,26 +1,80 @@
-<html><head>
-<meta http-equiv="refresh" content="0; url=battlefield.php">
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rush 42</title>
+	<meta charset ="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
 </head>
 <body>
-<?php
-require_once('Battleground/Battleground.class.php');
-require_once('SpaceShips/OrkRavajeur.class.php');
-require_once('SpaceShips/OrkExplozeur.class.php');
-require_once('SpaceShips/ImpCuirasse.class.php');
-require_once('SpaceShips/Asteroid.class.php');
-require_once('Battleground/EnumDirection.class.php');
+	<div id ="header">
+		<div id ="logo">
+			<a href ="index.php">Warhammer 42K</a>
+		</div>
+		<div id ="banniere-slide">
+		</div>
+	</div>
+	<div id ="body">
+		<body width="100%">
+		<div id ="body-body">
+			<div id ="body-result">
+			<?php
+				include("result.php");
+			?>
+			</div>
+		</div>
+		<div id ="check-connexion">
+			<?php
+				session_start();
+				if (isset($_POST['logout']))
+				{
+					$_SESSION['login'] = NULL;
+					$_SESSION['passwd'] = NULL;
+				}
+				if (isset($_POST['login']))
+				{
+					if (isset($_POST['username']) && $passwd = isset($_POST['passwd']))
+					{
+						include("config.php");
+						$mysqli = mysqli_connect($ip, $login, $passwd, 'rush');
+						$check1 = mysqli_prepare($mysqli, "SELECT id FROM account WHERE login='".$_POST['username']."'");
+						mysqli_stmt_execute($check1);
+						mysqli_stmt_store_result($check1);
+						mysqli_stmt_num_rows($check1);
+						$check2 = mysqli_prepare($mysqli, "SELECT id FROM account WHERE passwd='".hash("whirlpool", $_POST['passwd'])."'");
+						mysqli_stmt_execute($check2);
+						mysqli_stmt_store_result($check2);
+						mysqli_stmt_num_rows($check2);
+						$usr = mysqli_stmt_num_rows($check2);
+						$pwd = mysqli_stmt_num_rows($check2);
+						if ($usr == 1 && $pwd == 1)
+						{
+							$_SESSION['login'] = $_POST['username'];
+							$_SESSION['passwd'] = hash("whirlpool", $_POST['passwd']);
+							$usr = $_SESSION['login'];
+							$pwd = $_SESSION['passwd'];
+							include("connected.php");
+						}
+						else
+							include("notconnected.php");
+					}
+				}
+				else if (isset($_SESSION['login']))
+				{
+					include("connected.php");
+				}
+				else
+				{
+					$_SESSION['login'] = NULL;
+					include("notconnected.php");
+				}
+			?>
+		</div>
+		<div id ="bottom">
+			<span>&copy; 2014 npineau, ivannere &amp; tbourgeo</span>
+		</div>
+	</div>
+</body>
+</html>
 
-session_start();
-
-$_SESSION['turn'] = -1;
-$_SESSION['bg'] = new Battleground();
-$_SESSION['ships'][] = new OrkExplozeur(['x' => 10, 'y' => 10, 'z' => EnumDirection::SOUTH, 'name' => "Ork'n'Roll", 'width' => 1, 'length' => 5, 'sprite' => "green"]);
-$_SESSION['ships'][] = new ImpCuirasse(['x' => 130, 'y' => 90, 'z' => EnumDirection::NORTH, 'name' => "Imperator Deus", 'width' => 2, 'length' => 6, 'sprite' => "red"]);
-$_SESSION['ships'][] = new Asteroid(['x' => 60, 'y' => 70, 'z' => EnumDirection::NORTH, 'name' => "Eroded Cube", 'width' => 7, 'length' => 5, 'sprite' => "brown"]);
-$_SESSION['ships'][] = new Asteroid(['x' => 20, 'y' => 90, 'z' => EnumDirection::NORTH, 'name' => "Lifeless Field", 'width' => 10, 'length' => 10, 'sprite' => "brown"]);
-$_SESSION['ships'][] = new Asteroid(['x' => 35, 'y' => 27, 'z' => EnumDirection::NORTH, 'name' => "Hot as Hadess Mass", 'width' => 10, 'length' => 4, 'sprite' => "brown"]);
-$_SESSION['ships'][] = new Asteroid(['x' => 140, 'y' => 90, 'z' => EnumDirection::NORTH, 'name' => "Merciless Meteor", 'width' => 12, 'length' => 5, 'sprite' => "brown"]);
-$_SESSION['ships'][] = new Asteroid(['x' => 88, 'y' => 42, 'z' => EnumDirection::NORTH, 'name' => "Ashen Boulder", 'width' => 8, 'length' => 9, 'sprite' => "brown"]);
-$_SESSION['ships'][] = new Asteroid(['x' => 124, 'y' => 12, 'z' => EnumDirection::NORTH, 'name' => "Ice Continent", 'width' => 10, 'length' => 10, 'sprite' => "brown"]);
-?>
-</html></html>

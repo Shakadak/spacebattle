@@ -1,0 +1,23 @@
+body {
+	font-family: monospace;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+td {
+	border: 1px solid rgba(240, 240, 240, .5);
+	width: 10px;
+	height: 10px;
+}
+.battleground {
+	float: left;
+}
+
+#board
+{
+	background-color: rgba(255, 255, 255, .5);
+	padding: 25px;
+	border-radius: 25px;
+}
