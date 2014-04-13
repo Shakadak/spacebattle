@@ -1,9 +1,9 @@
 <?php
 echo('<!DOCTYPE html>
 <html>
-<head>
-	<title>Rush 42</title>
-	<meta charset ="utf-8">
+  <head>
+    <title>Rush 42</title>
+    <meta charset ="utf-8">
 	<style type="text/css">
 		body
 		{
@@ -67,13 +67,13 @@ echo('<!DOCTYPE html>
 			margin-right: 10px;
 		}
 	</style>
-</head>
-<body>
-	<div id ="header">
-		<h1>Administration</h1>
-		<p>Bienvenue dans la page d\'administration</p>
-		<p>ajout, modiﬁcation, suppression des articles, catégories et utilisateurs.</p>
-	</div>
+  </head>
+  <body>
+    <div id ="header">
+      <h1>Administration</h1>
+      <p>Bienvenue dans la page d\'administration</p>
+      <p>ajout, modiﬁcation, suppression des articles, catégories et utilisateurs.</p>
+    </div>
 ');
 	if (isset($_POST['login']))
 	{

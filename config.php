@@ -1,5 +1,5 @@
 <?php
-$ip = 'localhost';
-$login = 'root';
-$passwd = 'bitnamiishiring';
+  $ip = 'localhost';
+  $login = 'root';
+  $passwd = 'fnhmg';
 ?>
