@@ -75,24 +75,24 @@ Class BattleShip
 		case EnumDirection::NORTH:
 			self::_removeV(1, 1);
 			$this->_x += $this->_center * $turn;
-			$this->_y += $this->_center * $turn;
+			$this->_y += $this->_center;
 			$this->_z = -2 * $turn;
 			break;
 		case EnumDirection::SOUTH:
 			self::_removeV(-1, -1);
 			$this->_x -= $this->_center * $turn;
-			$this->_y -= $this->_center * $turn;
+			$this->_y -= $this->_center;
 			$this->_z = 2 * $turn;
 			break;
 		case EnumDirection::EAST:
 			self::_removeH(-1, -1);
-			$this->_x -= $this->_center * $turn;
+			$this->_x -= $this->_center;
 			$this->_y += $this->_center * $turn;
 			$this->_z = -$turn;
 			break;
 		case EnumDirection::WEST:
 			self::_removeH(1, 1);
-			$this->_x += $this->_center * $turn;
+			$this->_x += $this->_center;
 			$this->_y -= $this->_center * $turn;
 			$this->_z = $turn;
 			break;
