@@ -4,29 +4,14 @@ require_once('Battleground/EnumDirection.class.php');
 
 Class BattleShip
 {
-	protected $_name = "Big Ass Meteor in your Face";
-	protected $_x = 0;
-	protected $_y = 0;
-	protected $_z = EnumDirection::NORTH;
-	protected $_rotate = 42;
-	protected $_pp = 42;
-	protected $_ppused = 42;
-	protected $_hp = 42000;
-	protected $_shield = 0;
-	protected $_speed = 0;
-	protected $_speedused = 0;
-	protected $_handling = 9000;
-	protected $_size = ['width' => 10, 'length' => 13];
-	protected $_sprite = "brown";
-
-	final public function __construct(array $kwargs, &$bg)
+	final public function __construct(array $kwargs)
 	{
 		$this->_x = $kwargs['x'];
-		$this->_x = $kwargs['y'];
+		$this->_y = $kwargs['y'];
 		$this->_name = $kwargs['name'];
 		$this->_z = $kwargs['z'];
 		$this->_sprite = $kwargs['sprite'];
-		self::setPos(0, $bg);
+		self::setPos(0);
 	}
 
 	public static function doc()
@@ -49,29 +34,29 @@ Class BattleShip
 		return ($this->_sprite);
 	}
 
-	final public function setPos($dist, &$bg)
+	final public function setPos($dist)
 	{
 		switch($this->_z)
 		{
 		case EnumDirection::NORTH:
+			self::_removeV(1, 1);
 			$this->_y -= $dist;
-			self::_removeV($bg, 1, 1);
-			self::_moveV($bg, 1, 1);
+			self::_moveV(1, 1);
 			break;
 		case EnumDirection::SOUTH:
+			self::_removeV(-1, -1);
 			$this->_y += $dist;
-			self::_removeV($bg, -1, -1);
-			self::_moveV($bg, -1, -1);
+			self::_moveV(-1, -1);
 			break;
 		case EnumDirection::EAST:
+			self::_removeH(-1, -1);
 			$this->_x += $dist;
-			self::_removeH($bg, -1, -1);
-			self::_moveH($bg, -1, -1);
+			self::_moveH(-1, -1);
 			break;
 		case EnumDirection::WEST:
+			self::_removeH(1, 1);
 			$this->_x -= $dist;
-			self::_removeH($bg, 1, 1);
-			self::_moveH($bg, 1, 1);
+			self::_moveH(1, 1);
 			break;
 		}
 	}
@@ -83,60 +68,80 @@ Class BattleShip
 		return ($this->_z);
 	}
 
-	final public function setZ(array $turn)
+	final public function setZ($turn)
 	{
 		switch($this->_z)
 		{
 		case EnumDirection::NORTH:
-			self::setNorth($turn);
+			self::_removeV(1, 1);
+			$this->_x += $this->_center * $turn;
+			$this->_y += $this->_center * $turn;
+			$this->_z = -2 * $turn;
 			break;
 		case EnumDirection::SOUTH:
-			self::setSouth($turn);
+			self::_removeV(-1, -1);
+			$this->_x -= $this->_center * $turn;
+			$this->_y -= $this->_center * $turn;
+			$this->_z = 2 * $turn;
 			break;
 		case EnumDirection::EAST:
-			self::setEast($turn);
+			self::_removeH(-1, -1);
+			$this->_x -= $this->_center * $turn;
+			$this->_y += $this->_center * $turn;
+			$this->_z = -$turn;
 			break;
 		case EnumDirection::WEST:
-			self::setWest($turn);
+			self::_removeH(1, 1);
+			$this->_x += $this->_center * $turn;
+			$this->_y -= $this->_center * $turn;
+			$this->_z = $turn;
 			break;
 		}
+		self::setPos(0);
 	}
 
-	final protected function _removeV(&$bg, $modx, $mody)
+	final protected function _removeH($modx, $mody)
 	{
+		$bg = unserialize(file_get_contents(".bg"));
 		for ($i = 0; $i < $this->_size['width']; $i++)
 		{
 			for ($j = 0; $j < $this->_size['length']; $j++)
-				$bg->battlefield[$this->_y + $i * $mody][$this->_x + $j * $modx] = NULL;
+				$bg[$this->_y + $i * $mody][$this->_x + $j * $modx] = NULL;
 		}
+		file_put_contents(".bg", serialize($bg));
 	}
 
-	final protected function _removeH(&$bg, $modx, $mody)
+	final protected function _removeV($modx, $mody)
 	{
+		$bg = unserialize(file_get_contents(".bg"));
 		for ($i = 0; $i < $this->_size['width']; $i++)
 		{
 			for ($j = 0; $j < $this->_size['length']; $j++)
-				$bg->battlefield[$this->_y + $j * $mody][$this->_x + $i * $modx] = NULL;
+				$bg[$this->_y + $j * $mody][$this->_x + $i * $modx] = NULL;
 		}
+		file_put_contents(".bg", serialize($bg));
 	}
 
-	final protected function _moveV(&$bg, $modx, $mody)
+	final protected function _moveH($modx, $mody)
 	{
+		$bg = unserialize(file_get_contents(".bg"));
 		for ($i = 0; $i < $this->_size['width']; $i++)
 		{
 			for ($j = 0; $j < $this->_size['length']; $j++)
-				$bg->battlefield[$this->_y + $i * $mody][$this->_x + $j * $modx] = $this;
+				$bg[$this->_y + $i * $mody][$this->_x + $j * $modx] = $this;
 		}
-		print_r($bg->battlefield);
+		file_put_contents(".bg", serialize($bg));
 	}
 
-	final protected function _moveH(&$bg, $modx, $mody)
+	final protected function _moveV($modx, $mody)
 	{
+		$bg = unserialize(file_get_contents(".bg"));
 		for ($i = 0; $i < $this->_size['width']; $i++)
 		{
 			for ($j = 0; $j < $this->_size['length']; $j++)
-				$bg->battlefield[$this->_y + $j * $mody][$this->_x + $i * $modx] = $this;
+				$bg[$this->_y + $j * $mody][$this->_x + $i * $modx] = $this;
 		}
+		file_put_contents(".bg", serialize($bg));
 	}
 
 	final public function getSpeed()

@@ -6,9 +6,10 @@ require_once('Battleground/EnumDirection.class.php');
 Class ImpCuirasse extends BattleShip
 {
 	protected $_name = "Imperator Deus";
-	protected $_pos = [];
+	protected $_x;
+	protected $_y;
 	protected $_z = EnumDirection::NORTH;
-	protected $_rotate = 3;
+	protected $_center = 3;
 	protected $_pp = 10;
 	protected $_hp = 4;
 	protected $_shield = 2;

@@ -5,16 +5,17 @@ Final Class Battleground
 {
 	const WIDTH = 150;
 	const HEIGHT = 100;
-	public $_battlefield;
 	private $_newturn = True;
 
 	public function __construct()
 	{
+		$bg = [];
 		for ($i = 0; $i < self::HEIGHT; $i++)
 		{
 			for ($j = 0; $j < self::WIDTH; $j++)
-				$this->battlefield[$i][$j] = 1;
+				$bg[$i][$j] = NULL;
 		}
+		file_put_contents(".bg", serialize($bg));
 	}
 
 	public function newturn()
@@ -27,25 +28,24 @@ Final Class Battleground
 		return ($this->_newturn);
 	}
 
-	public function enturn()
+	public function endturn()
 	{
 		$this->_newturn = True;
 	}
 
-	public function display()
+	public static function display()
 	{
+		$bg = unserialize(file_get_contents(".bg"));
 		print("<table>");
-		foreach ($this->battlefield as $row)
+		foreach ($bg as $row)
 		{
 			print("<tr>");
 			foreach ($row as $block)
 			{
-				print_r($block);
 				if ($block instanceof BattleShip)
 				{
 					print("<td style='background-color:");
-					print($block->getColor());
-					print("OMG");
+					print($block->getSprite());
 					print("'></td>");
 				}
 				else
@@ -55,30 +55,6 @@ Final Class Battleground
 			print(PHP_EOL);
 		}
 		print("</table>");
-	}
-
-	private function checkship(array $ships, $i, $j)
-	{
-		foreach ($ships as $ship)
-		{
-			$hull = $ship->getPos();
-			$head = True;
-			foreach ($hull as $block)
-			{
-				if (((int)($block / self::WIDTH) == $i) && ((int)($block % self::WIDTH) == $j))
-				{
-					print("<td style='background-color:");
-					if ($head)
-						print("black");
-					else
-						print($ship->getSprite());
-					print("'></td>");
-					return ;
-				}
-				$head = False;
-			}
-		}
-		echo "<td></td>";
 	}
 
 	public static function doc()

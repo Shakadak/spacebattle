@@ -6,9 +6,10 @@ require_once('Battleground/EnumDirection.class.php');
 Class OrkRavajeur extends BattleShip
 {
 	protected $_name = 'Oktobre Roug';
-	protected $_pos = [];
 	protected $_z = EnumDirection::SOUTH;
-	protected $_rotate = 0;
+	protected $_x;
+	protected $_y;
+	protected $_center = 0;
 	protected $_pp = 10;
 	protected $_hp = 4;
 	protected $_shield = 0;
