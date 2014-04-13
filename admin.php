@@ -4,69 +4,71 @@ echo('<!DOCTYPE html>
   <head>
     <title>Rush 42</title>
     <meta charset ="utf-8">
-	<style type="text/css">
-		body
-		{
-			padding: 0;
-			margin-left: auto;
-			margin-right: auto;
-			width: 90%;
-			width: 950px;
-			height: 100%;
-			background: #eee;
-			text-align: center;
-			color: #ddd;
+    <style type="text/css">
+      body
+      {
+        padding: 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+        width: 950px;
+        height: 100%;
+        background: #eee;
+        text-align: center;
+        color: #ddd;
+      }
 
-		}
-		#header
-		{
-			border: 1px solid #000;
-			width: 100%;
-			height: 150px;
-			margin-right: 10px;
-			min-width: 837px;
-			overflow: hidden;
-		    background: #1e1e1e;
-		    border-radius: 6px;
-			box-shadow: 0px 0px 50px rgba(0,0,0,0.5);
-		}
-		#body
-		{
-			margin-top: 10px;
-			width: 100%
-		}
-		#body-result
-		{
-			margin-left: auto;
-			margin-right: auto;
-			background: #eee;
-			width: 740px;
-			min-height: 600px;
-			height: 100%;
-			overflow: hidden;
-		    background: #1e1e1e;
-		    border-radius: 6px;
-			box-shadow: 0px 0px 50px rgba(0,0,0,0.5);
-		}
-		#bottom
-		{
-			background: #eee;
-			margin-top: 10px;
-			float: left;
-			width: 100%;
-			height: 15px;
-			overflow: hidden;
-		    background: #1e1e1e;
-		    border-radius: 6px;
-			box-shadow: 0px 0px 50px rgba(0,0,0,0.5);
-			font-size: 12px;
-			text-align: right;
-		}
-		#bottom span
-		{
-			margin-right: 10px;
-		}
-	</style>
+      #header
+      {
+        border: 1px solid #000;
+        width: 100%;
+        height: 150px;
+        margin-right: 10px;
+        min-width: 837px;
+        overflow: hidden;
+        background: #1e1e1e;
+        border-radius: 6px;
+        box-shadow: 0px 0px 50px rgba(0,0,0,0.5);
+      }
+
+      #body
+      {
+        margin-top: 10px;
+        width: 100%
+      }
+      #body-result
+      {
+        margin-left: auto;
+        margin-right: auto;
+        background: #eee;
+        width: 740px;
+        min-height: 600px;
+        height: 100%;
+        overflow: hidden;
+        background: #1e1e1e;
+        border-radius: 6px;
+        box-shadow: 0px 0px 50px rgba(0,0,0,0.5);
+      }
+
+      #bottom
+      {
+        background: #eee;
+        margin-top: 10px;
+        float: left;
+        width: 100%;
+        height: 15px;
+        overflow: hidden;
+        background: #1e1e1e;
+        border-radius: 6px;
+        box-shadow: 0px 0px 50px rgba(0,0,0,0.5);
+        font-size: 12px;
+        text-align: right;
+      }
+      #bottom span
+      {   
+        margin-right: 10px;
+      }
+    </style>
   </head>
   <body>
     <div id ="header">
@@ -109,20 +111,16 @@ Mot de passe:<br><input type="password" name="passwd" value ="" />
 </div
 </div>
 <div id ="bottom">
-<span>©  2014 ivannere & tpageard</span>
+<span>&copy; 2014 npineau, ivannere &amp; tbourgeo</span>
 </div>
 </body>
 </html>
 ');
-		}
-		else
-		{
-			echo("toto");
-		}
-	}
-	else
-	{
-		echo('<div id ="body">
+  }
+  }
+  else
+  {
+    echo('<div id ="body">
 <div id ="body-result">
 <form method="POST" action="admin.php">
 <h2>Connexion:</h2>
